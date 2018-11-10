@@ -1,0 +1,237 @@
+mysql> select * from countries;
++------------+--------------------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME             | REGION_ID |
++------------+--------------------------+-----------+
+| AR         | Argentina                | 2         |
+| AU         | Australia                | 3         |
+| BE         | Belgium                  | 1         |
+| BR         | Brazil                   | 2         |
+| CA         | Canada                   | 2         |
+| CH         | Switzerland              | 1         |
+| CN         | China                    | 3         |
+| DE         | Germany                  | 1         |
+| DK         | Denmark                  | 1         |
+| EG         | Egypt                    | 4         |
+| FR         | France                   | 1         |
+| IL         | Israel                   | 4         |
+| IN         | India                    | 3         |
+| IT         | Italy                    | 1         |
+| JP         | Japan                    | 3         |
+| KW         | Kuwait                   | 4         |
+| ML         | Malaysia                 | 3         |
+| MX         | Mexico                   | 2         |
+| NG         | Nigeria                  | 4         |
+| NL         | Netherlands              | 1         |
+| SG         | Singapore                | 3         |
+| UK         | United Kingdom           | 1         |
+| US         | United States of America | 2         |
+| ZM         | Zambia                   | 4         |
+| ZW         | Zimbabwe                 | 4         |
++------------+--------------------------+-----------+
+25 rows in set (0.02 sec)
+
+mysql> select distinct region_id from countries;
++-----------+
+| region_id |
++-----------+
+| 2         |
+| 3         |
+| 1         |
+| 4         |
++-----------+
+
+mysql> select distinct * from countries where region_id=1;
++------------+----------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME   | REGION_ID |
++------------+----------------+-----------+
+| BE         | Belgium        | 1         |
+| CH         | Switzerland    | 1         |
+| DE         | Germany        | 1         |
+| DK         | Denmark        | 1         |
+| FR         | France         | 1         |
+| IT         | Italy          | 1         |
+| NL         | Netherlands    | 1         |
+| UK         | United Kingdom | 1         |
++------------+----------------+-----------+
+8 rows in set (0.00 sec)
+
+select * from countries order by region_id;
++------------+--------------------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME             | REGION_ID |
++------------+--------------------------+-----------+
+| BE         | Belgium                  | 1         |
+| CH         | Switzerland              | 1         |
+| DE         | Germany                  | 1         |
+| DK         | Denmark                  | 1         |
+| FR         | France                   | 1         |
+| IT         | Italy                    | 1         |
+| NL         | Netherlands              | 1         |
+| UK         | United Kingdom           | 1         |
+| AR         | Argentina                | 2         |
+| BR         | Brazil                   | 2         |
+| CA         | Canada                   | 2         |
+| MX         | Mexico                   | 2         |
+| US         | United States of America | 2         |
+| AU         | Australia                | 3         |
+| CN         | China                    | 3         |
+| IN         | India                    | 3         |
+| JP         | Japan                    | 3         |
+| ML         | Malaysia                 | 3         |
+| SG         | Singapore                | 3         |
+| EG         | Egypt                    | 4         |
+| IL         | Israel                   | 4         |
+| KW         | Kuwait                   | 4         |
+| NG         | Nigeria                  | 4         |
+| ZM         | Zambia                   | 4         |
+| ZW         | Zimbabwe                 | 4         |
++------------+--------------------------+-----------+
+25 rows in set (0.01 sec)
+
+mysql> select * from countries order by region_id limit 9,3;
++------------+--------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME | REGION_ID |
++------------+--------------+-----------+
+| BR         | Brazil       | 2         |
+| CA         | Canada       | 2         |
+| MX         | Mexico       | 2         |
++------------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       | 200        | 1700        |
+|            20 | Marketing            | 201        | 1800        |
+|            30 | Purchasing           | 114        | 1700        |
+|            40 | Human Resources      | 203        | 2400        |
+|            50 | Shipping             | 121        | 1500        |
+|            60 | IT                   | 103        | 1400        |
+|            70 | Public Relations     | 204        | 2700        |
+|            80 | Sales                | 145        | 2500        |
+|            90 | Executive            | 100        | 1700        |
+|           100 | Finance              | 108        | 1700        |
+|           110 | Accounting           | 205        | 1700        |
+|           120 | Treasury             |            | 1700        |
+|           130 | Corporate Tax        |            | 1700        |
+|           140 | Control And Credit   |            | 1700        |
+|           150 | Shareholder Services |            | 1700        |
+|           160 | Benefits             |            | 1700        |
+|           170 | Manufacturing        |            | 1700        |
+|           180 | Construction         |            | 1700        |
+|           190 | Contracting          |            | 1700        |
+|           200 | Operations           |            | 1700        |
+|           210 | IT Support           |            | 1700        |
+|           220 | NOC                  |            | 1700        |
+|           230 | IT Helpdesk          |            | 1700        |
+|           240 | Government Sales     |            | 1700        |
+|           250 | Retail Sales         |            | 1700        |
+|           260 | Recruiting           |            | 1700        |
+|           270 | Payroll              |            | 1700        |
++---------------+----------------------+------------+-------------+
+
+mysql> select count(department_id) from departments;
++----------------------+
+| count(department_id) |
++----------------------+
+|                   27 |
++----------------------+
+
+mysql> select location_id, count(location_id) from departments group by location_id;
++-------------+--------------------+
+| location_id | count(location_id) |
++-------------+--------------------+
+| 1700        |                 21 |
+| 1800        |                  1 |
+| 2400        |                  1 |
+| 1500        |                  1 |
+| 1400        |                  1 |
+| 2700        |                  1 |
+| 2500        |                  1 |
++-------------+--------------------+
+
+mysql> select count(location_id) from departments where  location_id>1;
++--------------------+
+| count(location_id) |
++--------------------+
+|                 27 |
++--------------------+
+mysql> select count(distinct location_id) from departments ;
++-----------------------------+
+| count(distinct location_id) |
++-----------------------------+
+|                           7 |
++-----------------------------+
+
+mysql> select count(region_id) from countries where  region_id>3;
++------------------+
+| count(region_id) |
++------------------+
+|                6 |
++------------------+
+
+mysql> select * from emp, dept where emp.deptno= dept.deptno;
++-------+--------+-----------+------+------------+------+---------+--------+--------+------------+----------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO | DEPTNO | DNAME      | LOC      |
++-------+--------+-----------+------+------------+------+---------+--------+--------+------------+----------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     |     20 | RESEARCH   | DALLAS   |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     |     30 | SALES      | CHICAGO  |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     |     20 | RESEARCH   | DALLAS   |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     |     30 | SALES      | CHICAGO  |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     |     10 | ACCOUNTING | NEW YORK |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     |     20 | RESEARCH   | DALLAS   |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     |     10 | ACCOUNTING | NEW YORK |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     |     30 | SALES      | CHICAGO  |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     |     30 | SALES      | CHICAGO  |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     |     20 | RESEARCH   | DALLAS   |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     |     10 | ACCOUNTING | NEW YORK |
++-------+--------+-----------+------+------------+------+---------+--------+--------+------------+----------+
+
+mysql> select grade,REGION_ID from salgrade left join regions on salgrade.grade=regions.REGION_ID;
++-------+-----------+
+| grade | REGION_ID |
++-------+-----------+
+| 1     | 1         |
+| 2     | 2         |
+| 3     | 3         |
+| 4     | 4         |
+| 5     | NULL      |
++-------+-----------+
+
+mysql> select * from student where student.id in(select region_id from regions);
++----+----------+------+---------+
+| id | name     | age  | address |
++----+----------+------+---------+
+|  1 | joker    |   18 | NULL    |
+|  2 | xiaozhao |   20 | NULL    |
++----+----------+------+---------+
+
+mysql> select * from salgrade where exists (select * from regions);
++-------+-------+-------+
+| GRADE | LOSAL | HISAL |
++-------+-------+-------+
+| 1     | 700   | 1200  |
+| 2     | 1201  | 1400  |
+| 3     | 1401  | 2000  |
+| 4     | 2001  | 3000  |
+| 5     | 3001  | 9999  |
++-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select age,name  from student union all select REGION_ID,REGION_NAME from regions;
++------+------------------------+
+| age  | name                   |
++------+------------------------+
+| 18   | joker                  |
+| 20   | xiaozhao               |
+| 1    | Europe                 |
+| 2    | Americas               |
+| 3    | Asia                   |
+| 4    | Middle East and Africa |
++------+------------------------+
+6 rows in set (0.00 sec)
